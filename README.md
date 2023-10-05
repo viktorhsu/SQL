@@ -1,0 +1,1 @@
+This is my note for reviewing SQL. This is a challenging period for me, marked by helplessness, loneliness, and financial constraints. However, I am also gaining a deeper understanding of the world, humanity, and life.
