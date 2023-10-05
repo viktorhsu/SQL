@@ -1,0 +1,29 @@
+五、窗口函数（包含特征函数，以及OVER()部分）
+1. RANK() OVER(PARTITION BY c1 ORDER BY c2) AS new_name 
+#排序结果：1、2、2、4、4
+
+2. DENSE_RANK() OVER(PARTITION BY c1 ORDER BY c2) AS new_name 
+#排序结果：1、2、2、3、3
+
+3. ROW_NUMBER() OVER(PARTITION BY c1 ORDER BY c2) AS new_name 
+#排序结果：1、2、3、4、5
+
+
+4. FIRST_VALUE(c1) OVER(PARTITION BY c2 ORDER BY c3) AS new_name 
+#获取每个分区内的第一行值
+
+5. LAST_VALUE(c1) OVER(PARTITION BY c2 ORDER BY c3) AS new_name 
+#获取每个分区内的最后一行值
+
+
+6. NTH_VALUE(c1, n) OVER(PARTITION BY c2 ORDER BY c3) AS new_name 
+#获取每个分区中，第n行位置的数据，注意，在该代码下，每个分区中，第n行之前数值都为空
+#如需要使得分区内每行均有数值，则需添加一行代码：ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+NTH_VALUE(c1, n) OVER(PARTITION BY c2 ORDER BY c3 ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS new_name 
+
+
+
+
+
+
+
