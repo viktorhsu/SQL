@@ -1,0 +1,75 @@
+三、日期时间函数
+1、CURDATE()和CURTIME()：CURDATE() = 2023-0707，CURDATE()+0 = 20230707。即CURDATE()+0 会将日期型值转换成数值型值。
+NOW()或current_timestamp(): SELECT NOW()=2023-10-05 18:11:45.
+
+2、DATE_FORMAT(date, format)：将一个日期转换成指定格式的日期数据。
+%Y: 四位数字表示年份
+%y: 两位数字表示年份
+%M: 大写的英文月份
+%m: 数字形式的月份
+%D: 1st, 2nd, 3rd,...
+%d: 00, 01,..., 31.
+%H: 24小时制小时部分
+%h: 12小时制小时部分
+%i: 分钟
+%s: 秒钟
+%p: 用于添加PM还是AM。只有当原始数据为24小时时，才可以自动判断。
+#将日期数据转换成指定的格式：DATE_FORMAT('20230707', '%M %d, %Y') = July 07, 2023
+#将日期时间数据转换成指定的格式：DATE_FORMAT('20230707171023', '%H:%i:%s %M %d, %Y') = 17:10:23 July 07, 2023
+#将时间数据转换成指定的格式（注意：在DATE_FORMAT()中，时间数据前面必须有日期数据）：DATE_FORMAT('2023-07-07 17:10:23', '%H:%i:%s') = 17:10:23
+#将时间数据转换成12小时制格式，并且指明am或pm: DATE_FORMAT('2023-07-07 07:10:23', '%h:%i:%s %p') = 07:10:23 AM
+
+
+3、TIME_FORMAT(time, format): 该函数只处理时间数据。时间数据前不需要添加日期数据。TIME_FORMAT('171023', '%h:%i:%s %p') = 05:10:23 PM
+
+
+4、DATEDIFF(date1, date2)：计算日期差。即date1-date2。该函数中参数可以为日期格式或日期时间格式，但是只会计算日期部分而忽略时间部分。DATEDIFF('2010-11-30 23:59:59', '2010-12-31') = -31.
+
+
+5、ADDDATE(date, INTERVAL, expr type)和SUBDATE(date, INTERVAL, expr type)：给当前日期数据添加或者减少一段时间，被计算的数据，必须有日期部分。ADDDATE('2010-12-31 23:59:59', INTERVAL '1:1' MINUTE_SECOND)=2011-01-01 00:01:00
+
+
+6、 ADDTIME(date, expr) 和 SUBTIME(date, expr):对当前时间数据进行增加或者减少一段时间，被计算的数据可以只需要包含时间部分，但是如果不包括日期部分计算可能会出现错误。ADDTIME('2000-12-31 23:59:59', '1:1:1')=2001-01-01 01:01:00
+ADDTIME('23:59:59', '1:1:1')=25:01:00
+
+
+7、YEAR(), QUARTER(), MINUTE(), SECOND(),MONTH(), MONTHNAME():均为返回数据中特定的部分，比如年份，季节，分钟，秒钟，月份等。其中MONTHNAME()为返回月份等英文名称。
+
+
+8、DAYNAME(date)和DAYOFWEEK(date)和WEEKDAY(date)
+DAYNAME('2023-07-08') = Saturday,即该函数为返回英文的星期名。
+DAYOFWEEK('2023-07-08') = 7，即该函数为返回该日期在整个星期中的位置。周日为1，周一为2，周三为4，...，周六为7.
+WEEKDAY('2023-07-08') = 5，该函数也是返回该日期在整个星期中的位置。但是，索引规则不一样。该函数设定周一为0，周六为5，周日为6.
+
+
+9、DAYOFYEAR(date)和DAYOFMONTH(date)：用来计算该日期为当年或当月的第几天。DAYOFYEAR('20231005')=278.
+
+
+10、SEC_TO_TIME和TIME_TO_SEC：将总秒数转换成时间。SEC_TO_TIME(2345) = 00:39:05，SEC_TO_TIME(2345) + 0 = 3905.即该函数+0后会以数字的形式来表示时间。
+
+
+11、UTC_DATE(), UTC_TIME()和UTC_TIMESTAMP():分别返回当前日期、当前时间、当前日期时间的世界标准值。
+UTC_DATE()=2023-10-05; 
+utc_timestamp()=2023-10-05 10:52:39; 
+utc_time()=10:53:13.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
