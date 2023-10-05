@@ -1,0 +1,25 @@
+四、条件判断函数
+1、IF(expr, v1, v2)：当表达式为真时，返回v1；表达式为假时，返回v2.
+IF(1<2, 'GOOD', 'BAD') = 'GOOD'; IF(1=2, 'GOOD', 'BAD') = 'BAD'
+
+
+2、IFNULL(v1, v2)：当v1为空时，返回v2; 当v1不为空时，返回v1.
+IFNULL(1, 2) = 1
+IFNULL(NULL, 2) = 2
+
+
+3、CASE expr WHEN v1 THEN r1 ELSE rn END：多条件判断语句，注意需要以END结尾。
+
+SELECT
+    name,
+    score,
+    CASE
+        WHEN score >= 90 THEN 'A'
+        WHEN score >= 80 THEN 'B'
+        WHEN score >= 70 THEN 'C'
+        WHEN score >= 60 THEN 'D'
+        ELSE 'F'
+    END AS grade
+FROM students;
+
+
