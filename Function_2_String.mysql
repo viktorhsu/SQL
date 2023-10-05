@@ -1,0 +1,75 @@
+二、字符串函数
+1、CHAR_LENGTH():获取字符个数，CHAR_LENGTH(‘中国’) = 2。
+2、，LENGTH()：获取字节的长度，LENGTH(‘中国’) = 6。
+
+
+3、CONCAT(s1, s2, ...) ：直接连接字符, CONCAT('my', 'sql', 'nall', 'good')=mysqlnallgood;注意：当字符串中存在NULL时，结果为NULL.
+4、CONCAT_WS(interval, s1, s2, ...)：CONCAT_WS('-', 'I', 'LOVE', 'YOU') = I-LOVE-YOU.注意：该函数不会受NULL值的影响。
+
+
+5、SBUSTRING(s, n, len)：为从字符串中的位置n开始截取长度为len的子字符串。n可以为负数，表示从字符串的尾部开始数，第n个位置。当len未被指定时，默认为无限大。SUBSTRING('breakfast', -5, 3) = 'kfa',
+
+
+6、INSERT(s1, x, len, s2)：表示，先从字符串s1中位置为x中的字符算起（含），删除字符长度为len的字符串，再将字符串s2填补到该片段。INSERT('quest', 2, 2, 'what') = 'qwhatst'
+#注意：在该函数中，需满足x>=1。参数中，如果存在NULL，则返回NULL值。且在SQL中，字符串的第一个字符编码为1.
+
+
+7、REPLACE(s, s1, s2)：该函数为用字符串s2，去代替原字符串中所有的s1. REPLACE('xxx.mysqlxx.com', 'xx', 'wa')=wax.mysqlwa.com.
+
+
+8、LOWER()和UPPER()：用于将字符串转换成小写和大写。
+
+
+9、LEFT(s,n) 和 RIGHT(s,n)：LEFT(s,n)返回字符串s最左边的n个字符。LEFT('football', 5) = 'footb'。
+
+
+10、LPAD(s1, len, s2) 和 RPAD(s1, len, s2)：LPAD('hello', 10, '***')表示将'***'填充到'hello'的左边，使得新字符串的总长度达到10.
+#注意：当len小于原始字符串的长度时，则原始字符串不会被填充。即LPAD('hello', 2, '***') = 'he'.因为len = 2小于原‘hello’的长度5.所以'hello'会被缩短。
+
+
+11、LTRIM(s) 和 RTRIM(s) 以及 TRIM(s)：分别为删除字符串左边、右边以及两边的空格。
+
+
+12、TRIM(s1 FROM s)：该函数为删除字符串s两端所有的字符s1，但s中间的s1不会被删除。
+
+
+13、REPEAT(s,n)：表示让字符串s重复n次。当n为0时，会返回一个空字符串，不是NULL.
+
+
+14、LOCATE(str1, str): 返回子字符串str1在str中第一次出现的位置。LOCATE('ball', 'footballball')=5。
+
+
+15、SPACE(n)：生成由n个空格组成的空字符串。
+
+
+16、STRCAMP(s1, s2)：用于比较用于比较字符串s1和s2的长度大小,返回值为1或者-1以及0。即STRCAMP('12345', '123') = 1, STRCAMP('123', '12345') = -1, STRCAMP('123', '123') = 0.
+
+
+17、REVERSE(s)：将字符串反转。即REVERSE('ABCD') = 'DCBA'.
+
+
+18、FIELD(s, s1, s2, s3, ..., sn)：返回字符串s在这些字符串中第一次出现的位置。如果不存在该字符串s,则返回0. 即FIELD('hi', 'my', 'you', 'me', 'hi', 'oem') = 4
+
+
+19、ELT(N, s1, s2, s3, s4, ...)：返回这些字符串中第N个的字符串。ELT(3, 'AB', 'CREATE', 'LOVE', 'MYSQL') = 'LOVE'。即第3个位置的字符为LOVE.当N大于总的字符串长度时，返回NULL.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
