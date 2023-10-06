@@ -1,0 +1,103 @@
+1. BETWEEN AND：在MySQL中，包括两端。
+
+
+2.LIKE和NOT LIKE
+
+
+3. DISTINCT：DISTINCT后如果有多列时，比如distinct name, number,则distinct对多列都有效。
+
+
+4. GROUP BY
+#要防止select的列名中，在一组内，含有多种不同值的情况。即select选中的多列，需要是可以按照group by选中的列来进行分组的。
+比如下段代码中，GROUP BY 按照customer_id进行分组后，customer_id和order_id并不可以作为一组。即会出错。
+SELECT customer_id, order_id, SUM(order_amount) AS total_amount
+FROM orders
+GROUP BY customer_id;
+#GROUP BY可以对多个字段分组，字段之间用逗号隔开即可。
+
+
+
+5. GROUP_CONCAT(c1 ORDER BY c2 ASC SEPARATOR ', ')：该函数需要与GROUP BY一起使用。作用为将c列中，各属性的值用指定的符号连接起来
+SELECT department, GROUP_CONCAT(employee_name ORDER BY employee_name ASC SEPARATOR ', ') AS employee_list
+FROM employees
+GROUP BY department;
+
+
+
+6. HAVING：注意与WHERE区别，HAVING后可以使用聚合函数，WHERE不可以使用聚合函数。
+
+
+
+8. LIMIT：LIMIT 4, 3; 该语句为跳过4行，选取3行。即从第5行数据开始，选取3行。即为5、6、7行数据。等于LIMIT 4 OFFSET 3;
+
+
+
+9. INNER JOIN和LEFT JOIN和RIGHT JOIN
+#连接时，ON的条件，不只有相等，也可以是不等以及其它表达式
+#MySQL中可以通过UNION来实现全外连接。
+
+
+
+10. ANY或SOME，以及ALL
+#ANY: WHERE num1 > ANY (SELECT num 2 FROM tb12),表示只要大于其中一个值即可。
+#SOME和ANY的作用相同。
+
+
+
+11.UNION
+#UNION ALL不会去重，UNION会去重。
+#UNION子句中的ORDER BY无效，ORDER BY在UNION的子句的子句中有意义。1.如果在两个子句中都用ORDER BY, 且均不使用括号，则会报错. 2.如果不使用括号，但只在尾句中加ORDER BY才有用，此时为对联合后的表进行排序。3.如果对2个子句都使用ORDER BY后，再都用括号括起来，此时语法没有错误，但是ORDER BY排序无意义，不起作用。
+
+#此时为先对两个分表进行排序后，再联合。联合后分表内的排序不会被打乱
+select * from (select * from a where... order by...)t1
+union
+select * from (select * from a where... order by...)t2
+
+#此时为对联合后的表进行排序
+SELECT employee_name FROM employees1
+UNION
+SELECT employee_name FROM employees2
+ORDER BY employee_name ASC;
+
+#此时会报错
+SELECT employee_name FROM employees1
+ORDER BY employee_name ASC
+UNION
+SELECT employee_name FROM employees2
+ORDER BY employee_name ASC;
+
+#此时排序没有意义，不会起到排序的作用
+(SELECT employee_name FROM employees1
+ORDER BY employee_name ASC)
+UNION
+(SELECT employee_name FROM employees2
+ORDER BY employee_name ASC);
+
+
+
+12. EXISTS
+先判断EXISTS里面的条件，如果为真，则执行外部语句。SELECT * FROM fruits WHERE EXISTS (SELECT name FROM suppliers WHERE s_id = 107);
+
+
+
+13.WITH ROLLUP
+#该函数用在GROUP BY之后，作用为在分组后的结果最后增加一行，该行显示所有分组值的总和。GROUP BY s_id WITH ROLLUP;
+#该函数不可以和ORDER BY一起使用。
+SELECT product, region, SUM(revenue) AS total_revenue
+FROM sales
+GROUP BY product, region WITH ROLLUP;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
