@@ -1,0 +1,90 @@
+1、INSERT INTO
+#对指定的列插入数据--插入单条
+INSERT INTO person (id, name, age, info)
+VALUES (1, 'Green', 21, 'Lawer');
+
+#对指定的列插入数据--插入多条（直接在后面添加值即可,只有当这些行中的数据所在的列均相同时才可）
+INSERT INTO person(name, age, info)
+VALUES('Evans', 27, 'secretary'),
+('Dale', 22, 'cook'),
+('Edison', 28, 'singer');
+
+#对所有的列插入数据--插入单条
+INSERT INTO person 
+VALUES (3, 'Mary', 24, 'Musician');
+
+#对所有的列插入数据--插入多条（只有当这些行中的数据所在的列均相同时才可）
+INSERT INTO person
+VALUES(9, 'Harriet', 19, 'pianist'),
+(NULL, 'Harriet', 21, 'magician');
+
+#插入子查询语句
+INSERT INTO person(id, name, age, info)
+SELECT id, name, age, info FROM person_old;
+
+
+
+2、UPDATE...SET对表中的数据进行修改
+#如果WHERE后没有条件，则会修改所有的行
+UPDATE person 
+SET age = 15, name = 'LiMing' 
+WHERE id BETWEEN 10 AND 13;
+
+#对满足不同条件的行，更新不同的值
+UPDATE students
+SET group_name = 'A'
+WHERE age < 18;
+
+UPDATE students
+SET group_name = 'B'
+WHERE age >= 18;
+
+
+
+3、DELETE FROM（删除行数据）
+#如果WHERE后没有条件，则会修改所有的行
+DELETE FROM students
+WHERE student_id = 1;
+
+#通过与LIMIT联合使用，可以指定要删除行数的上限
+#删除排序后的数据，不超过前1000行
+DELETE FROM logs
+ORDER BY log_timestamp ASC
+LIMIT 1000;
+
+#限制删除的满足条件的行数不超过前50行
+DELETE FROM documents
+WHERE expiration_date < CURDATE()
+LIMIT 50;
+
+
+4、TRUNCATE TABLE：与DELETE逐行删除数据不同，该语句为直接清空表中所有数据。比DELETE更快。本质为先直接删除整个表，然后再重建一个没有记录的，但是结构与原表相同的表。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
