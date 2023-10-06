@@ -1,17 +1,14 @@
 五、窗口函数（包含特征函数，以及OVER()部分）
 1. RANK() OVER(PARTITION BY c1 ORDER BY c2) AS new_name 
 #排序结果：1、2、2、4、4
-
 2. DENSE_RANK() OVER(PARTITION BY c1 ORDER BY c2) AS new_name 
 #排序结果：1、2、2、3、3
-
 3. ROW_NUMBER() OVER(PARTITION BY c1 ORDER BY c2) AS new_name 
 #排序结果：1、2、3、4、5
 
 
 4. FIRST_VALUE(c1) OVER(PARTITION BY c2 ORDER BY c3) AS new_name 
 #获取每个分区内的第一行值
-
 5. LAST_VALUE(c1) OVER(PARTITION BY c2 ORDER BY c3) AS new_name 
 #获取每个分区内的最后一行值
 
@@ -20,6 +17,57 @@
 #获取每个分区中，第n行位置的数据，注意，在该代码下，每个分区中，第n行之前数值都为空
 #如需要使得分区内每行均有数值，则需添加一行代码：ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
 NTH_VALUE(c1, n) OVER(PARTITION BY c2 ORDER BY c3 ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS new_name 
+
+
+
+7. LEAD(c1, n, default) OVER(PARTITION BY c2 ORDER BY c3) AS new_name 
+#创建一个新的一列，值为将c1列的值往前提n行，末尾n行的缺失值设为default
+#日期型和其他类型数据均可
+8. LAG(c1, n, default) OVER(PARTITION BY c2 ORDER BY c3) AS new_name 
+
+
+
+9. PERCENT_RANK() OVER(PARTITION BY c1 ORDER BY c2) AS new_name 
+#按照c1分区，按照c2排序，新的一列显示每个分区内的每行c2的值在这个分区内的百分数排名。
+#对于只有一行数据的分区，百分数排名为0
+
+
+
+10. SUM(c1) OVER(PARTITION BY c2 ORDER BY c3) AS new_name
+#对每个分区中的c1值进行累加操作。
+
+
+
+11. AVG(c1) OVER(PARTITION BY c2 ORDER BY c3) AS new_name
+#对每个分区中的c1值，进行累计平均
+
+
+
+12. COUNT(c1) OVER(PARTITION BY c2 ORDER BY c3) AS new_name
+#对每个分区进行计数，1，2，3，....可以看出每个分区内含有的数据行数。
+
+
+13. MAX(c1) OVER(PARTITION BY c2 ORDER BY c3) AS new_name
+#计算每个分区内的累积最大值，如果分区内的数据没有被排序，则会计算整个分区内的最大值
+14. MIN(c1) OVER(PARTITION BY c2 ORDER BY c3) AS new_name
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
