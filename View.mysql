@@ -1,0 +1,24 @@
+1、视图的定义和本质
+#视图只是一个窗口，是一个虚拟的表，不存储数据，存储的是一个查询语句。而表是实际存在的内容。
+#视图不占用物理空间。
+#视图更新的本质是通过更新其所在的基本表来实现的。即更新视图的时候，其实是先更新其基本表。更新表的时候，视图也自然会改变。
+#对视图进行更新很复杂，不建议对视图进行更新。对视图一般只进行查询操作。
+
+
+
+2、创建视图
+CREATE VIEW my_view
+SELECT column1, column2
+FROM my_table
+WHERE condition;
+
+
+
+3、查看视图
+#查看某个视图的基本信息：DESCRIBE view_t;
+#查看某个视图的详细信息：SHOW CREATE VIEW view_t;
+#查看所有视图的详细信息：SELECT * FROM information_schema.views; （information_schema.views是关键字）
+
+
+
+4、删除视图：DROP VIEW IF EXISTS stu_glass;
