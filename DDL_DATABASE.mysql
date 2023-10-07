@@ -1,0 +1,69 @@
+1、CREATE TABLE（即定义表的结构）
+#定义主键时，可以在定义列的后面指定，也可以在定义列的时候指定。不过对于以多列为主键的，则必须在尾部指定。
+#定义外键时，只能放在尾部定义。并且定义的是一个约束，约束有名称。删除外键的时候，删除约束而不是删除列。CONSTRAINT fk_emp_dep1 FOREIGN KEY(deptID) REFERENCES tb_dept1(id) #约束名为fk_emp_dep1，tb_dept1(id)表示匹配的是表tb_dept1中的id列。
+#定义非空：NOT NULL
+#定义唯一性约束：UNIQUE
+#定义默认约束：DEFAULT 123。表示当插入数据时，该列存在空值时，给予一个默认值123.
+#定义自增列：AUTO_INCREMENT. 一个表只能有一列被设定为自增，且该列必须为主键的一部分
+#定义运算列：GENERATED ALWAYS AS...VIRTUAL即定义的列为经过已有的其它列运算后得到的结果。
+c int(9) GENERATED ALWAYS AS ((a+b)) VIRTUAL,
+
+CREATE TABLE tb1 (
+id int(9) PRIMARY KEY NOT NULL AUTO_INCREAMENT,
+a int(9) DEFAULT NULL UNIQUE,
+b int(9) DEFAULT 30,
+c int(9) GENERATED ALWAYS AS ((a+b)) VIRTUAL,
+PRIMARY KEY ('id')
+CONSTRAINT fk_emp_dep1 FOREIGN KEY(a) REFERENCES tb_dept1(tbid)
+);
+
+
+
+2、ALTER TABLE
+#修改表的名称，RENAME。ALTER TABLE table1 RENAME table2;
+#修改表中列的数据类型，MODIFY。ALTER TABLE table1 MODIFY school VARCHAR(30);
+#修改列的名称，CHANGE。（也可以同时修改列的数据类型）：ALTER TABLE table1 CHANGE school academy VARCHAR(60);
+#添加列，ADD。 以及FIRST, AFTER如果不指定添加列的位置，则默认为添加至最后一列，可以通过AFTER来指定添加的位置
+(1)ALTER TABLE table1 ADD schoolnum INT(10) NOT NULL;(添加至最后一列)
+(2)ALTER TABLE table1 ADD schoolnum INT(10) FIRST;(添加到第一列)
+(3)ALTER TABLE table1 ADD schoolnum INT(10) AFTER student;(添加到student的后面)
+#删除列，DROP。ALTER TABLE table1 DROP schoolnum;
+#改变表中列的排序：通过MODIFY和AFTER结合的方式。ALTER TABLE table1 MODIFY student VARCHAR(12) AFTER school;（将列student改至school的后面）
+#删除表的外键约束，DROP FOREIGN。ALTER TABLE table1 DROP FOREIGN KEY(fk_emp_dept);
+
+
+
+3、DROP TABLE IF EXISTS
+#对于没有与其他表有关联性的表，可以一次性删除一个或者多个
+DROP TABLE IF EXISTS table1, table2, table3;
+#对于与其它表有关联的表，不可以直接删除父表，但是可以直接删除子表，然后再删除父表。
+#如果需要只删除父表，而不删除子表，则需要先删除外键约束，然后再删除父表
+ALTER TABLE table1 DROP FOREIGN KEY fk_emp_dept;
+
+
+
+4、DESCRIBE table1: 查看表table1的基本结构
+5、SHOW CREATE TABLE table1：查看表table1的详细信息
+
+
+
+
+6、登录数据库：登录mysql前，必须先启动mysql。控制台输入mysql -u root -p，即可在终端编写mysql语句了。
+
+7、创建和查看数据库：SHOW DATABASES和CREATE DATABASE
+#创建数据库时，先使用SHOW DATABASES来查看已有的数据库，防止因为重复而造成错误。有些是已有的，甚至是MySQL必须的。比如mysql数据库。
+#创建数据库，CREATE DATABASE test1;
+#SHOW CREATE DATABASE可以查看数据库定义信息
+
+8、使用数据库：USE zoo;
+
+9、删除数据库：DROP DATABASE IF EXISTS test1;
+
+
+
+
+
+
+
+
+
