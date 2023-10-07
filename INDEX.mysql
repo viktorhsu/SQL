@@ -1,0 +1,88 @@
+1、索引是一种数据结构，在MySQL中，索引只有2种存储类型，BTREE和HASH.
+
+
+2、索引的分类，索引有多种分类方式，最常用的为根据字段的特性来分类。
+#普通索引(B-Tree)：是最常见的索引
+#唯一索引(Unique Index)：唯一索引要求索引列的值必须唯一，但是可以为空值。
+#主键索引(Primary Key)：主键索引是特殊的唯一索引，不能为空值。
+#前缀索引(Prefix Index)：它只对列的一部分数据进行索引。具体来说，它只索引列值的前几个字符（前缀），而不是整个列值
+
+#按照数据结构进行分类：可以分为B+tree索引、Hash索引、Full-text索引。
+#按照包含列的个数来分类：单列索引，联合索引。对于多列索引，在查询条件中需要包含左侧字段，才可以调用索引。
+#根据物理存储来分类(即根据叶子结点存储的数据是否完整
+)：聚簇索引（主键索引）、二级索引
+
+
+3、创建索引--定义表时：直接通过各种索引函数创建即可。默认索引的名称为列名，但对于多列索引，则必须指定索引的名称。一般为在创建表的时候定义索引。
+#创建普通索引：索引函数为INDEX()
+CREATE TABLE book
+(
+bookid INT NOT NULL,
+bookname VARCHAR(255) NOT NULL,
+authors VARCHAR(255) NOT NULL,
+info VARCHAR(255) NULL,
+comment VARCHAR(255) NULL,
+year_publication YEAR NOT NULL,
+INDEX(year_publication)
+);
+
+#创建前缀索引：INDEX()，但是只采用列名的前几个字符
+CREATE TABLE book
+(
+bookid INT NOT NULL,
+bookname VARCHAR(255) NOT NULL,
+authors VARCHAR(255) NOT NULL,
+info VARCHAR(255) NULL,
+comment VARCHAR(255) NULL,
+year_publication YEAR NOT NULL,
+INDEX(year_publication(5))
+);
+
+#创建多列索引：必须对索引进行命名，INDEX name_1()
+CREATE TABLE t2
+(
+id INT(11) NOT NULL,
+name CHAR(50) NULL,
+age INT(11) NOT NULL,
+info VARCHAR(255),
+INDEX MultiIdx(id, name, age)
+); #此处索引的名称为MultiIdx
+
+#创建唯一索引：UNIQUE INDEX()
+CREATE TABLE t1
+（
+id INT NOT NULL,
+name CHAR(30) NOT NULL,
+UNIQUE INDEX UniqIdx(id)
+); #注意：UniqIdx为索引的名称
+
+#创建主键索引：PRIMARY KEY。为在指定主键时自动创建。
+
+#创建全文索引：FULLTEXT INDEX()
+
+
+
+4、给已有的表添加索引：ALTER TABLE...ADD...
+#添加普通索引：ALTER TABLE book ADD INDEX (bookname);
+#添加前缀索引：ALTER TABLE book ADD INDEX (bookname(30));
+#添加多列索引：ALTER TABLE book ADD INDEX mutIDX(authors(30), info(50));
+#添加唯一索引：ALTER TABLE book ADD UNIQUE INDEX (bookid);
+#添加全文索引：ALTER TABLE t6 ADD FULLTEXT INDEX infoFTIdx( info);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
