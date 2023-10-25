@@ -74,6 +74,19 @@ UNION
 ORDER BY employee_name ASC);
 
 
+#UNION使用注意点：在联合时，注意每列是对应的。否则会出现上面数据和下面数据对应的列不同的情况。
+即
+select prod_id, orders
+union
+select prod_id, orders
+
+不要使用
+select *
+union
+select *
+
+
+
 
 12. EXISTS
 先判断EXISTS里面的条件，如果为真，则执行外部语句。SELECT * FROM fruits WHERE EXISTS (SELECT name FROM suppliers WHERE s_id = 107);
