@@ -1,3 +1,14 @@
+(7) SELECT
+(8) DISTINCT <select_list>
+(1) FROM  <main_table>
+(3) <join_type> JOIN <join_table>
+(2) ON <join_condition>
+(4) WHERE <where_condition>
+(5) GROUP BY <group_by_list>
+(6) HAVING <having_condition>
+(9) ORDER BY <order_by_condition>
+(10) LIMIT <limit_number>
+
 1. BETWEEN AND：在MySQL中，包括两端。
 
 
